@@ -6,6 +6,7 @@ import DetailPageWrapper from "./pages/DetailPage";
 import ArchivePage from "./pages/ArchivePage";
 import CreatePage from "./pages/CreatePage";
 import PageNotFound from "./pages/PageNotFound";
+import ArchivePageWrapper from "./pages/ArchivePage";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <Route path="/" element={<HomePageWrapper />} />
           <Route path="/notes/new" element={<CreatePage />} />
           <Route path="/notes/:id" element={<DetailPageWrapper />} />
-          <Route path="/archives" element={<ArchivePage />} />
+          <Route path="/archives" element={<ArchivePageWrapper />} />
         </Routes>
       </main>
     </div>

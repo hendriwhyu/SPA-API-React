@@ -8,8 +8,11 @@ import {
 } from "../utils/local-data";
 import autoBind from "auto-bind";
 import DetailButton from "../components/DetailButton";
-import { FaBoxArchive, FaBoxOpen, FaTrash } from "react-icons/fa6";
+import { FaTrash } from "react-icons/fa6";
+import { IoMdArchive } from "react-icons/io";
+import { MdUnarchive } from "react-icons/md";
 import DetailNote from "../components/DetailNote";
+import PropTypes from "prop-types";
 
 function DetailPageWrapper() {
   const { id } = useParams();
@@ -26,14 +29,14 @@ function DetailPageAction(props) {
           title="Pindahkan"
           id={id}
           eventHandler={onUnarchive}
-          icon={<FaBoxOpen />}
+          icon={<MdUnarchive />}
         />
       ) : (
         <DetailButton
           title="Archive"
           id={id}
           eventHandler={onArchive}
-          icon={<FaBoxArchive />}
+          icon={<IoMdArchive />}
         />
       )}
 
@@ -46,6 +49,13 @@ function DetailPageAction(props) {
     </div>
   );
 }
+
+DetailPageAction.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  icon: PropTypes.element,
+  eventHandler: PropTypes.func,
+};
 
 class DetailPage extends React.Component {
   constructor(props) {
