@@ -13,6 +13,7 @@ import { IoMdArchive } from "react-icons/io";
 import { MdUnarchive } from "react-icons/md";
 import DetailNote from "../components/DetailNote";
 import PropTypes from "prop-types";
+import PageNotFound from "./PageNotFound";
 
 function DetailPageWrapper() {
   const { id } = useParams();
@@ -78,7 +79,7 @@ class DetailPage extends React.Component {
 
   render() {
     if (!this.state.note) {
-      return <p>Note is not found!</p>;
+      return <PageNotFound />;
     }
     return (
       <section className="detail-page">
