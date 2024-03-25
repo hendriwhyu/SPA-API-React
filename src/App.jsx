@@ -3,10 +3,10 @@ import Navigation from "./components/Navigation";
 import { Link, Route, Routes } from "react-router-dom";
 import HomePageWrapper from "./pages/HomePage";
 import DetailPageWrapper from "./pages/DetailPage";
-import ArchivePage from "./pages/ArchivePage";
 import CreatePage from "./pages/CreatePage";
 import PageNotFound from "./pages/PageNotFound";
 import ArchivePageWrapper from "./pages/ArchivePage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
           <Route path="/archives" element={<ArchivePageWrapper />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   );
 }
