@@ -100,4 +100,8 @@ class DetailPage extends React.Component {
   }
 }
 
+DetailPage.propTypes = {
+  id: PropTypes.any,
+};
+
 export default DetailPageWrapper;
