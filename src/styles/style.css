@@ -59,6 +59,12 @@ header h1 a {
   color: var(--on-background);
 }
 
+header h1 a:hover {
+  color: var(--on-background);
+  text-decoration: underline;
+  color: var(--background);
+}
+
 header .navigation ul li {
   display: inline-block;
   font-size: 24px;
@@ -67,6 +73,11 @@ header .navigation ul li {
 
 header .navigation ul li a {
   color: var(--on-background);
+}
+
+header .navigation ul li a:hover {
+  text-decoration: underline;
+  color: var(--background);
 }
 
 main {
@@ -113,6 +124,11 @@ footer {
 }
 
 .note-item__title {
+  margin: 4px 0;
+}
+.note-item__title a:hover {
+  color: var(--secondary);
+  text-decoration: underline;
   margin: 4px 0;
 }
 
@@ -191,7 +207,7 @@ footer {
   width: 100%;
   background-color: transparent;
   border: 0;
-  color: var(--on-background);
+  color: var(--background);
   font-family: "Inter", sans-serif;
   font-size: 64px;
   font-weight: bold;
@@ -206,7 +222,7 @@ footer {
   width: 100%;
   background-color: transparent;
   border: 0;
-  color: var(--on-background);
+  color: var(--background);
   font-family: "Inter", sans-serif;
   font-size: 24px;
   padding: 8px 0;
