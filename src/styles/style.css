@@ -12,8 +12,15 @@
 }
 
 [data-theme="light"] {
-  --background: #dddddd;
   --suface: #ffffff;
+  --on-background: var(--on-surface);
+  --on-background-grey: #6d6d6d;
+  --on-surface: #ffffff;
+}
+[data-theme="dark"] {
+  --secondary: #6d6d6d;
+  --background: #ffffff;
+  --suface: #121212;
   --on-background: #333333;
   --on-background-grey: #6d6d6d;
   --on-surface: #333333;
@@ -317,6 +324,43 @@ footer {
   font-size: 28px;
   cursor: pointer;
   color: var(--on-background);
+}
+
+.login-page h2,
+.register-page h2 {
+  font-weight: normal;
+}
+
+.login-input,
+.register-input,
+.contact-input {
+  margin-top: 16px;
+}
+
+.login-input input,
+.register-input input,
+.contact-input input {
+  display: block;
+  padding: 16px;
+  width: 100%;
+  margin: 8px 0;
+  font-size: 24px;
+  background-color: transparent;
+  border: 2px dashed black;
+  border-radius: 8px;
+}
+
+.login-input button,
+.register-input button,
+.contact-input button {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  font-size: 24px;
+  background-color: tan;
+  border: 2px dashed black;
+  border-radius: 8px;
+  margin: 16px 0;
 }
 
 @media screen and (min-width: 650px) {

@@ -1,7 +1,8 @@
 import autoBind from "auto-bind";
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FaCheck } from "react-icons/fa6";
+import useInput from "../hooks/useInput";
 
 function NoteInputAction(props) {
   const { AddNote } = props;
@@ -25,57 +26,36 @@ NoteInputAction.propTypes = {
   AddNote: PropTypes.func.isRequired,
 };
 
-class NoteInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: "",
-      body: "",
-    };
-    autoBind(this);
-  }
+function NoteInput({ addNote }) {
+  const [title, handleTitleChange] = useInput("");
+  const [body, setBody] = useState(null);
 
-  handleTitleChange(e) {
-    this.setState(() => {
-      return {
-        title: e.target.value,
-      };
-    });
-  }
+  const addNoteEventHandler = () => {
+    addNote({ title, body });
+  };
 
-  onInputBodyHandler(event) {
-    this.setState(() => {
-      return {
-        body: event.target.innerHTML,
-      };
-    });
-  }
-
-  onAddNoteEventHandler() {
-    this.props.addNote(this.state);
-  }
-
-  render() {
-    return (
-      <>
-        <div className="add-new-page__input">
-          <input
-            className="add-new-page__input__title"
-            placeholder="Catatan rahasia"
-            value={this.state.title}
-            onChange={this.handleTitleChange}
-          />
-          <div
-            className="add-new-page__input__body"
-            contentEditable="true"
-            data-placeholder="Sebenarnya saya adalah ...."
-            onInput={this.onInputBodyHandler}
-          ></div>
-        </div>
-        <NoteInputAction AddNote={this.onAddNoteEventHandler} />
-      </>
-    );
-  }
+  const handleBodyChange = (event) => {
+    setBody(event.target.innerHTML);
+  };
+  return (
+    <>
+      <div className="add-new-page__input">
+        <input
+          className="add-new-page__input__title"
+          placeholder="Catatan rahasia"
+          value={title}
+          onChange={handleTitleChange}
+        />
+        <div
+          className="add-new-page__input__body"
+          contentEditable="true"
+          data-placeholder="Sebenarnya saya adalah ...."
+          onInput={handleBodyChange}
+        ></div>
+      </div>
+      <NoteInputAction AddNote={addNoteEventHandler} />
+    </>
+  );
 }
 
 NoteInput.propTypes = {

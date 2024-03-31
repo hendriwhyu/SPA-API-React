@@ -1,24 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { getActiveNotes } from "../utils/local-data";
-import autoBind from "auto-bind";
+import { getActiveNotes } from "../utils/api";
 import SearchBar from "../components/SearchBar";
 import NoteList from "../components/NoteList";
-import PropTypes from "prop-types";
-
-function HomePageWrapper() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const keyword = searchParams.get("keyword");
-
-  const changeSearchParams = (keyword) => {
-    setSearchParams({ keyword });
-  };
-
-  return (
-    <HomePage defaultKeyword={keyword} keywordChange={changeSearchParams} />
-  );
-}
 
 function HomePageAction() {
   const navigate = useNavigate();
@@ -50,67 +34,52 @@ function HomePageAction() {
   );
 }
 
-class HomePage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      keyword: props.defaultKeyword || "",
-      notes: getActiveNotes(),
-    };
+function HomePage() {
+  const [notes, setNotes] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [keyword, setKeyword] = useState(() => {
+    return searchParams.get("keyword") || "";
+  });
 
-    autoBind(this);
-  }
+  const changeSearchParams = (keyword) => {
+    setKeyword(keyword);
+    setSearchParams({ keyword });
+  };
 
-  onKeywordChangeHandler(keyword) {
-    this.setState(() => {
-      return {
-        keyword: keyword,
-      };
-    });
+  const getNotes = async () => {
+    const { data } = await getActiveNotes();
+    setNotes(data);
+  };
 
-    this.props.keywordChange(keyword);
-  }
+  useEffect(() => {
+    getNotes();
+  }, [notes]);
 
-  render() {
-    const notes = this.state.notes.filter((note) => {
-      return note.title
-        .toLowerCase()
-        .includes(this.state.keyword.toLowerCase());
-    });
+  const filteredNotes = notes.filter((note) => {
+    return note.title.toLowerCase().includes(keyword.toLowerCase());
+  });
 
-    if (notes.length < 1) {
-      return (
-        <section className="homepage">
-          <h2>Catatan Aktif</h2>
-          <SearchBar
-            keyword={this.state.keyword}
-            keywordChange={this.onKeywordChangeHandler}
-          />
-          <section className="notes-list-empty">
-            <p className="notes-list__empty">Tidak ada catatan</p>
-          </section>
-          <HomePageAction />
-        </section>
-      );
-    }
-
+  if (notes.length < 1) {
     return (
       <section className="homepage">
         <h2>Catatan Aktif</h2>
-        <SearchBar
-          keyword={this.state.keyword}
-          keywordChange={this.onKeywordChangeHandler}
-        />
-        <NoteList notes={notes} />
+        <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
+        <section className="notes-list-empty">
+          <p className="notes-list__empty">Tidak ada catatan</p>
+        </section>
         <HomePageAction />
       </section>
     );
   }
+
+  return (
+    <section className="homepage">
+      <h2>Catatan Aktif</h2>
+      <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
+      <NoteList notes={filteredNotes} />
+      <HomePageAction />
+    </section>
+  );
 }
 
-HomePage.propTypes = {
-  defaultKeyword: PropTypes.string,
-  keywordChange: PropTypes.func.isRequired,
-};
-
-export default HomePageWrapper;
+export default HomePage;
