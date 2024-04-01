@@ -4,7 +4,7 @@ import { LocaleContext } from "../contexts/LocaleContext";
 
 function SearchBar(props) {
   const { keyword, keywordChange } = props;
-  const { locale } = useContext(LocaleContext);
+  const { value: locale } = useContext(LocaleContext);
   return (
     <section className="search-bar">
       <input

@@ -42,7 +42,7 @@ function HomePage() {
   const [keyword, setKeyword] = useState(() => {
     return searchParams.get("keyword") || "";
   });
-  const { locale } = useContext(LocaleContext);
+  const { value: locale } = useContext(LocaleContext);
 
   const changeSearchParams = (keyword) => {
     setKeyword(keyword);

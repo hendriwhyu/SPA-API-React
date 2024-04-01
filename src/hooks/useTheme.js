@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+const useTheme = (defaultValue) => {
+  const [value, setValue] = useState(defaultValue[0]);
 
-function useTheme(defaultValue) {
-  const [value, setValue] = useState(defaultValue);
-
-  const handleChange = (newValue) => {
-    setValue(newValue);
+  const handleChange = () => {
+    setValue((prevValue) =>
+      prevValue === defaultValue[0] ? defaultValue[1] : defaultValue[0]
+    );
   };
 
-  return [value, handleChange];
-  
-}
+  const valueMemo = useMemo(
+    () => ({
+      value,
+      handleChange,
+    }),
+    [value]
+  );
+
+  return valueMemo;
+};
 
 export default useTheme;

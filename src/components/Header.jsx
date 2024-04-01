@@ -12,8 +12,9 @@ import { LocaleContext } from "../contexts/LocaleContext";
 import { UserContext } from "../contexts/UserContext";
 
 function Header() {
-  const { theme, changeTheme } = useContext(ThemeContext);
-  const { locale, changeLocale } = useContext(LocaleContext);
+  const { value: theme, handleChange: changeTheme } = useContext(ThemeContext);
+  const { value: locale, handleChange: changeLocale } =
+    useContext(LocaleContext);
   const { authUser, onLogout } = useContext(UserContext);
   return (
     <header>

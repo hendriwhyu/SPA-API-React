@@ -15,37 +15,15 @@ import { ThemeContext } from "./contexts/ThemeContext";
 import HomePage from "./pages/HomePage";
 import ArchivePage from "./pages/ArchivePage";
 
-const LANG_SYSTEM = {
-  id: "id",
-  en: "en",
-};
+const LANG_SYSTEM = ["id", "en"];
 
-const THEME_SYSTEM = {
-  light: "light",
-  dark: "dark",
-};
+const THEME_SYSTEM = ["light", "dark"];
 
 function App() {
   const [authUser, setAuthUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
-  const [locale, handleLocale] = useTheme(LANG_SYSTEM.id);
-  const [theme, handleTheme] = useTheme(THEME_SYSTEM.light);
-
-  const changeTheme = () => {
-    if (theme === THEME_SYSTEM.light) {
-      handleTheme(THEME_SYSTEM.dark);
-    } else {
-      handleTheme(THEME_SYSTEM.light);
-    }
-  };
-
-  const changeLocale = () => {
-    if (locale === LANG_SYSTEM.id) {
-      handleLocale(LANG_SYSTEM.en);
-    } else {
-      handleLocale(LANG_SYSTEM.id);
-    }
-  };
+  const localeValue = useTheme(LANG_SYSTEM);
+  const themeValue = useTheme(THEME_SYSTEM);
 
   const getAuthUser = async () => {
     const { error, data } = await getUserLogged();
@@ -67,20 +45,6 @@ function App() {
     putAccessToken("");
   };
 
-  const localeValue = useMemo(() => {
-    return {
-      locale,
-      changeLocale,
-    };
-  }, [locale]);
-
-  const themeValue = useMemo(() => {
-    return {
-      theme,
-      changeTheme,
-    };
-  }, [theme]);
-
   const userValue = useMemo(() => {
     return {
       authUser,
@@ -91,13 +55,14 @@ function App() {
 
   useEffect(() => {
     getAuthUser();
-    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.setAttribute("data-theme", themeValue.value);
+    document.documentElement.setAttribute("lang", localeValue.value);
 
     return () => {
       setInitializing(true);
       setAuthUser(null);
     };
-  }, [theme]);
+  }, [themeValue.value]);
 
   if (initializing) {
     return null;

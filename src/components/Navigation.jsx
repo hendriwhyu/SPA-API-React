@@ -6,7 +6,7 @@ import { LocaleContext } from "../contexts/LocaleContext";
 
 function Navigation() {
   const { authUser } = useContext(UserContext);
-  const { locale } = useContext(LocaleContext);
+  const { value: locale } = useContext(LocaleContext);
   return (
     <nav className="navigation">
       <ul>

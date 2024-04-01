@@ -30,7 +30,7 @@ NoteInputAction.propTypes = {
 function NoteInput({ addNote }) {
   const [title, handleTitleChange] = useInput("");
   const [body, setBody] = useState(null);
-  const { locale } = useContext(LocaleContext);
+  const { value: locale } = useContext(LocaleContext);
 
   const addNoteEventHandler = () => {
     addNote({ title, body });
