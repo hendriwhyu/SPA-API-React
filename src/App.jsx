@@ -24,15 +24,15 @@ function App() {
   const [initializing, setInitializing] = useState(true);
   const localeValue = useTheme(LANG_SYSTEM);
   const themeValue = useTheme(THEME_SYSTEM);
-
+  console.log(authUser);
   const getAuthUser = async () => {
     const { error, data } = await getUserLogged();
     if (!error) {
       setAuthUser(data);
-      setInitializing(false);
     } else {
       setAuthUser(null);
     }
+    setInitializing(false);
   };
 
   const onLoginSuccess = ({ accessToken }) => {
@@ -42,6 +42,7 @@ function App() {
 
   const onLogout = () => {
     setAuthUser(null);
+    setInitializing(false);
     putAccessToken("");
   };
 
@@ -59,15 +60,14 @@ function App() {
     document.documentElement.setAttribute("lang", localeValue.value);
 
     return () => {
-      setInitializing(true);
       setAuthUser(null);
+      setInitializing(true);
     };
   }, [themeValue.value]);
 
   if (initializing) {
     return null;
   }
-
   if (authUser === null) {
     return (
       <UserContext.Provider value={userValue}>
