@@ -24,7 +24,6 @@ function App() {
   const [initializing, setInitializing] = useState(true);
   const localeValue = useTheme(LANG_SYSTEM);
   const themeValue = useTheme(THEME_SYSTEM);
-  console.log(authUser);
   const getAuthUser = async () => {
     const { error, data } = await getUserLogged();
     if (!error) {
