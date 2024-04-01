@@ -13,14 +13,16 @@ import { UserContext } from "../contexts/UserContext";
 
 function Header() {
   const { theme, changeTheme } = useContext(ThemeContext);
-  const { changeLocale } = useContext(LocaleContext);
+  const { locale, changeLocale } = useContext(LocaleContext);
   const { authUser, onLogout } = useContext(UserContext);
   return (
     <header>
       <h1>
-        <Link to={"/"}>Aplikasi Catatan</Link>
+        <Link to={"/"}>
+          {locale === "id" ? "Aplikasi Catatan" : "Notes App"}
+        </Link>
       </h1>
-      <Navigation authUser={authUser} />
+      <Navigation />
       <button className="toggle-locale" onClick={changeLocale}>
         <MdGTranslate />
       </button>

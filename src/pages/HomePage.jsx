@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getActiveNotes } from "../utils/api";
 import SearchBar from "../components/SearchBar";
 import NoteList from "../components/NoteList";
+import useNote from "../hooks/useNote";
+import { LocaleContext } from "../contexts/LocaleContext";
 
 function HomePageAction() {
   const navigate = useNavigate();
@@ -35,34 +37,38 @@ function HomePageAction() {
 }
 
 function HomePage() {
-  const [notes, setNotes] = useState([]);
+  const [notes, loading] = useNote(getActiveNotes);
   const [searchParams, setSearchParams] = useSearchParams();
   const [keyword, setKeyword] = useState(() => {
     return searchParams.get("keyword") || "";
   });
+  const { locale } = useContext(LocaleContext);
 
   const changeSearchParams = (keyword) => {
     setKeyword(keyword);
     setSearchParams({ keyword });
   };
 
-  const getNotes = async () => {
-    const { data } = await getActiveNotes();
-    setNotes(data);
-  };
-
-  useEffect(() => {
-    getNotes();
-  }, [notes]);
-
   const filteredNotes = notes.filter((note) => {
     return note.title.toLowerCase().includes(keyword.toLowerCase());
   });
 
-  if (notes.length < 1) {
+  if (loading) {
+    return (
+      <section className="archives-page">
+        <h2>{locale === "id" ? "Catatan Aktif" : "Active Notes"}</h2>
+        <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
+        <section className="notes-list-empty">
+          <p className="notes-list__empty">Loading .....</p>
+        </section>
+      </section>
+    );
+  }
+
+  if (notes.length < 1 || filteredNotes.length < 1) {
     return (
       <section className="homepage">
-        <h2>Catatan Aktif</h2>
+        <h2>{locale === "id" ? "Catatan Aktif" : "Active Notes"}</h2>
         <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
         <section className="notes-list-empty">
           <p className="notes-list__empty">Tidak ada catatan</p>
@@ -74,7 +80,7 @@ function HomePage() {
 
   return (
     <section className="homepage">
-      <h2>Catatan Aktif</h2>
+      <h2>{locale === "id" ? "Catatan Aktif" : "Active Notes"}</h2>
       <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
       <NoteList notes={filteredNotes} />
       <HomePageAction />

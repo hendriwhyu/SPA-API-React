@@ -50,8 +50,8 @@ function App() {
   const getAuthUser = async () => {
     const { error, data } = await getUserLogged();
     if (!error) {
-      setInitializing(false);
       setAuthUser(data);
+      setInitializing(false);
     } else {
       setAuthUser(null);
     }
@@ -90,7 +90,6 @@ function App() {
   }, [authUser]);
 
   useEffect(() => {
-    setInitializing(false);
     getAuthUser();
     document.documentElement.setAttribute("data-theme", theme);
 

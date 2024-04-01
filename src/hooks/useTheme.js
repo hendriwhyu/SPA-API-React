@@ -8,6 +8,7 @@ function useTheme(defaultValue) {
   };
 
   return [value, handleChange];
+  
 }
 
 export default useTheme;
