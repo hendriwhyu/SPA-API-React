@@ -42,7 +42,7 @@ function RegisterPage() {
       });
     }
   };
-  
+
   return (
     <section className="regsiter-page">
       <h2>
@@ -53,11 +53,11 @@ function RegisterPage() {
       <RegisterForm register={registerHandler} />
       {locale === "Indonesia" ? (
         <p>
-          Sudah punya akun? <Link to={"/"}>Login disini.</Link>
+          Sudah punya akun? <Link to="/">Login disini.</Link>
         </p>
       ) : (
         <p>
-          Already have an account? <Link to="/register">Login here.</Link>
+          Already have an account? <Link to="/">Login here.</Link>
         </p>
       )}
     </section>

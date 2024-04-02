@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import useInput from "../hooks/useInput";
+import { LocaleContext } from "../contexts/LocaleContext";
 
 function LoginForm({ login }) {
   const [email, handleEmailChange] = useInput("");
   const [password, handlePasswordChange] = useInput("");
+  const { value: locale } = useContext(LocaleContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -13,22 +15,24 @@ function LoginForm({ login }) {
 
   return (
     <form onSubmit={handleSubmit} className="login-input">
-      <label htmlFor="email">Email</label>
+      <label htmlFor="email">{locale === "Indonesia" ? "Surel" : "Email"}</label>
       <input
         type="email"
         name="email"
-        placeholder="Email"
+        placeholder={locale === "Indonesia" ? "Surel" : "Email"}
         value={email}
         onChange={handleEmailChange}
       />
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password">
+        {locale === "Indonesia" ? "Kata Sandi" : "Password"}
+      </label>
       <input
         type="password"
-        placeholder="Password"
+        placeholder={locale === "Indonesia" ? "Kata Sandi" : "Password"}
         value={password}
         onChange={handlePasswordChange}
       />
-      <button>Masuk</button>
+      <button>{locale === "Indonesia" ? "Masuk" : "Login"}</button>
     </form>
   );
 }

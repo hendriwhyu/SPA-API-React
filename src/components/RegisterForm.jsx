@@ -33,37 +33,45 @@ function RegisterForm({ register }) {
 
   return (
     <form onSubmit={handleSubmit} className="login-input">
-      <label htmlFor="name">Name</label>
+      <label htmlFor="name">{locale === "Indonesia" ? "Nama" : "Name"}</label>
       <input
         type="text"
         name="name"
-        placeholder="Name"
+        placeholder={locale === "Indonesia" ? "Nama" : "Name"}
         value={name}
         onChange={handleNameChange}
       />
-      <label htmlFor="email">Email</label>
+      <label htmlFor="email">
+        {locale === "Indonesia" ? "Surel" : "Email"}
+      </label>
       <input
         type="email"
         name="email"
-        placeholder="Email"
+        placeholder={locale === "Indonesia" ? "Surel" : "Email"}
         value={email}
         onChange={handleEmailChange}
       />
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password">
+        {locale === "Indonesia" ? "Kata Sandi" : "Password"}
+      </label>
       <input
         type="password"
-        placeholder="Password"
+        placeholder={locale === "Indonesia" ? "Kata Sandi" : "Password"}
         value={password}
         onChange={handlePasswordChange}
       />
-      <label htmlFor="confirmPassword">Confirm Password</label>
+      <label htmlFor="confirmPassword">
+        {locale === "Indonesia" ? "Konfirmasi Kata Sandi" : "Confirm Password"}
+      </label>
       <input
         type="password"
-        placeholder="Confirm Password"
+        placeholder={
+          locale === "Indonesia" ? "Konfirmasi Kata Sandi" : "Confirm Password"
+        }
         value={confirmPassword}
         onChange={handleConfirmPasswordChange}
       />
-      <button>Register</button>
+      <button>{locale === "Indonesia" ? "Daftar" : "Register"}</button>
     </form>
   );
 }
