@@ -4,41 +4,18 @@ import { register } from "../utils/api";
 import RegisterForm from "../components/RegisterForm";
 import { LocaleContext } from "../contexts/LocaleContext";
 import toast from "react-hot-toast";
-import { ThemeContext } from "../contexts/ThemeContext";
 
 function RegisterPage() {
   const navigate = useNavigate();
   const { value: locale } = useContext(LocaleContext);
-  const { value: theme } = useContext(ThemeContext);
 
   const registerHandler = async (user) => {
     const { error, message } = await register(user);
-    const requiredFields = ["name", "email", "password"];
-    let messageError = "";
-    const toastStyle =
-      theme === "light" ? {} : { background: "#333", color: "#fff" };
-
-    if (message === "Email already use") {
-      messageError =
-        locale === "Indonesia" ? "Email telah terdaftar disistem" : message;
-    } else {
-      messageError =
-        locale === "Indonesia"
-          ? requiredFields
-              .map((field) => (!user[field] ? field : null))
-              .filter(Boolean)
-              .join(", ") + " harus diisi"
-          : requiredFields
-              .map((field) => (!user[field] ? field : null))
-              .filter(Boolean)
-              .join(", ") + " must be filled";
-    }
     if (!error) {
       navigate("/");
     } else {
-      toast.error(messageError, {
+      toast.error(message, {
         position: "top-center",
-        style: toastStyle,
       });
     }
   };
