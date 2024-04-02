@@ -52,15 +52,16 @@ function HomePage() {
   const filteredNotes = notes.filter((note) => {
     return note.title.toLowerCase().includes(keyword.toLowerCase());
   });
-  
 
   if (loading) {
     return (
       <section className="archives-page">
-        <h2>{locale === "id" ? "Catatan Aktif" : "Active Notes"}</h2>
+        <h2>{locale === "Indonesia" ? "Catatan Aktif" : "Active Notes"}</h2>
         <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
         <section className="notes-list-empty">
-          <p className="notes-list__empty">Loading .....</p>
+          <p className="notes-list__empty">
+            {locale === "Indonesia" ? "Memuat....." : "Loading ....."}
+          </p>
         </section>
       </section>
     );
@@ -69,10 +70,12 @@ function HomePage() {
   if (notes.length < 1 || filteredNotes.length < 1) {
     return (
       <section className="homepage">
-        <h2>{locale === "id" ? "Catatan Aktif" : "Active Notes"}</h2>
+        <h2>{locale === "Indonesia" ? "Catatan Aktif" : "Active Notes"}</h2>
         <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
         <section className="notes-list-empty">
-          <p className="notes-list__empty">Tidak ada catatan</p>
+          <p className="notes-list__empty">
+            {locale === "Indonesia" ? "Tidak ada catatan" : "Not found notes"}
+          </p>
         </section>
         <HomePageAction />
       </section>
@@ -81,7 +84,7 @@ function HomePage() {
 
   return (
     <section className="homepage">
-      <h2>{locale === "id" ? "Catatan Aktif" : "Active Notes"}</h2>
+      <h2>{locale === "Indonesia" ? "Catatan Aktif" : "Active Notes"}</h2>
       <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
       <NoteList notes={filteredNotes} />
       <HomePageAction />

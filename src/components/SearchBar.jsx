@@ -10,7 +10,9 @@ function SearchBar(props) {
       <input
         type="text"
         placeholder={
-          locale === "id" ? "Cari berdasarkan judul ..." : "Search by title..."
+          locale === "Indonesia"
+            ? "Cari berdasarkan judul ..."
+            : "Search by title..."
         }
         value={keyword}
         onChange={(e) => keywordChange(e.target.value)}

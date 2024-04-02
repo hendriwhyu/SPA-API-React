@@ -13,7 +13,7 @@ function Navigation() {
         {authUser && (
           <li>
             <Link to={"/archives"}>
-              {locale === "id" ? "Arsip" : "Archive"}
+              {locale === "Indonesia" ? "Arsip" : "Archive"}
             </Link>
           </li>
         )}

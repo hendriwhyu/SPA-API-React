@@ -48,7 +48,9 @@ function NoteInput({ addNote }) {
       <div className="add-new-page__input">
         <input
           className="add-new-page__input__title"
-          placeholder={locale === "id" ? "Catatan rahasia" : "Secret Note"}
+          placeholder={
+            locale === "Indonesia" ? "Catatan rahasia" : "Secret Note"
+          }
           value={title}
           onChange={handleTitleChange}
         />
@@ -56,7 +58,7 @@ function NoteInput({ addNote }) {
           className="add-new-page__input__body"
           contentEditable="true"
           data-placeholder={
-            locale === "id"
+            locale === "Indonesia"
               ? "Sebenarnya saya adalah ...."
               : "It's actually me..."
           }

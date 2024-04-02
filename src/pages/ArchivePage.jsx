@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getArchivedNotes } from "../utils/api";
 import SearchBar from "../components/SearchBar";
 import NoteList from "../components/NoteList";
 import useNote from "../hooks/useNote";
+import { LocaleContext } from "../contexts/LocaleContext";
 
 function ArchivePage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -11,6 +12,8 @@ function ArchivePage() {
   const [keyword, setKeyword] = useState(() => {
     return searchParams.get("keyword") || "";
   });
+  const { locale } = useContext(LocaleContext);
+
   const changeSearchParams = (keyword) => {
     setKeyword(keyword);
     setSearchParams({ keyword });
@@ -23,10 +26,12 @@ function ArchivePage() {
   if (loading) {
     return (
       <section className="archives-page">
-        <h2>Catatan Arsip</h2>
+        <h2>{locale === "Indonesia" ? "Catatan Arsip" : "Archived Notes"}</h2>
         <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
         <section className="notes-list-empty">
-          <p className="notes-list__empty">Loading .....</p>
+          <p className="notes-list__empty">
+            {locale === "Indonesia" ? "Memuat....." : "Loading ....."}
+          </p>
         </section>
       </section>
     );
@@ -35,18 +40,20 @@ function ArchivePage() {
   if (notes.length < 1 || filteredNotes.length < 1) {
     return (
       <section className="archives-page">
-        <h2>Catatan Arsip</h2>
+        <h2>{locale === "Indonesia" ? "Catatan Arsip" : "Archived Notes"}</h2>
         <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
         <section className="notes-list-empty">
-          <p className="notes-list__empty">Tidak ada catatan</p>
+          <p className="notes-list__empty">
+            {locale === "Indonesia" ? "Tidak ada catatan" : "Not found notes"}
+          </p>
         </section>
-    </section>
+      </section>
     );
   }
 
   return (
     <section className="archives-page">
-      <h2>Catatan Arsip</h2>
+      <h2>{locale === "Indonesia" ? "Catatan Arsip" : "Archived Notes"}</h2>
       <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
       <NoteList notes={filteredNotes} />
     </section>

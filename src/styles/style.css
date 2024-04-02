@@ -301,20 +301,6 @@ footer {
   color: var(--on-background);
 }
 
-.input-login button,
-.input-register button {
-  font-family: "Inter", sans-serif;
-  font-weight: bold;
-  font-size: 24px;
-  width: 100%;
-  padding: 12px;
-  border: 0;
-  border-radius: 8px;
-  background-color: var(--on-background);
-  color: var(--background);
-  cursor: pointer;
-}
-
 .button-logout {
   display: flex;
   align-items: center;
@@ -332,14 +318,12 @@ footer {
 }
 
 .login-input,
-.register-input,
-.contact-input {
+.register-input {
   margin-top: 16px;
 }
 
 .login-input input,
-.register-input input,
-.contact-input input {
+.register-input input {
   display: block;
   padding: 16px;
   width: 100%;
@@ -351,8 +335,7 @@ footer {
 }
 
 .login-input button,
-.register-input button,
-.contact-input button {
+.register-input button {
   display: block;
   width: 100%;
   padding: 16px;
@@ -361,6 +344,7 @@ footer {
   border: 2px dashed black;
   border-radius: 8px;
   margin: 16px 0;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 650px) {

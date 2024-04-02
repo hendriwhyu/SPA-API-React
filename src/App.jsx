@@ -16,8 +16,7 @@ import HomePage from "./pages/HomePage";
 import ArchivePage from "./pages/ArchivePage";
 import { Toaster } from "react-hot-toast";
 
-const LANG_SYSTEM = ["id", "en"];
-
+const LANG_SYSTEM = ["Indonesia", "English"];
 const THEME_SYSTEM = ["light", "dark"];
 
 function App() {

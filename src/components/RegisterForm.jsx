@@ -11,7 +11,6 @@ function RegisterForm({ register }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (password !== confirmPassword) {
       toast.error("Passwords doesn't match");
     } else {

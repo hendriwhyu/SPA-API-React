@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "./Navigation";
 import {
@@ -10,23 +10,32 @@ import {
 import { ThemeContext } from "../contexts/ThemeContext";
 import { LocaleContext } from "../contexts/LocaleContext";
 import { UserContext } from "../contexts/UserContext";
+import toast from "react-hot-toast";
+import useThemeToast from "../hooks/useThemeToast";
 
 function Header() {
   const { value: theme, handleChange: changeTheme } = useContext(ThemeContext);
-  const { value: locale, handleChange: changeLocale } = useContext(LocaleContext);
+  const { value: locale, handleChange: changeLocale } =
+    useContext(LocaleContext);
   const { authUser, onLogout } = useContext(UserContext);
+  const { onChangeTheme, onChangeLocale } = useThemeToast(
+    changeTheme,
+    changeLocale,
+    theme,
+    locale
+  );
   return (
     <header>
       <h1>
         <Link to={"/"}>
-          {locale === "id" ? "Aplikasi Catatan" : "Notes App"}
+          {locale === "Indonesia" ? "Aplikasi Catatan" : "Notes App"}
         </Link>
       </h1>
       <Navigation />
-      <button className="toggle-locale" onClick={changeLocale}>
+      <button className="toggle-locale" onClick={onChangeLocale}>
         <MdGTranslate />
       </button>
-      <button className="toggle-theme" onClick={changeTheme}>
+      <button className="toggle-theme" onClick={onChangeTheme}>
         {theme === "light" ? <MdOutlineDarkMode /> : <MdLightMode />}
       </button>
 

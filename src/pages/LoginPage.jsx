@@ -5,24 +5,38 @@ import { Link } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
 import { UserContext } from "../contexts/UserContext";
 import toast from "react-hot-toast";
+import { LocaleContext } from "../contexts/LocaleContext";
 function LoginPage({ loginSuccess }) {
-  const { setAuthUser } = useContext(UserContext);
+  const { value: locale } = useContext(LocaleContext);
+
   const onLogin = async ({ email, password }) => {
     const { error, data, message } = await login({ email, password });
     if (!error) {
       loginSuccess(data);
     } else {
-      toast.error(message);
+      toast.error(message, {
+        position: "top-center",
+      });
     }
   };
 
   return (
     <section className="login-page">
-      <h2>Yuk, login untuk menggunakan aplikasi.</h2>
+      <h2>
+        {locale === "Indonesia"
+          ? "Yuk, login untuk menggunakan aplikasi."
+          : "Come on, log in to use the application."}
+      </h2>
       <LoginForm login={onLogin} />
-      <p>
-        Belum punya akun? <Link to="/register">Daftar di sini.</Link>
-      </p>
+      {locale === "Indonesia" ? (
+        <p>
+          Belum punya akun? <Link to="/register"> Daftar di sini.</Link>
+        </p>
+      ) : (
+        <p>
+          Don't have an account? <Link to="/register"> Register here.</Link>
+        </p>
+      )}
     </section>
   );
 }
