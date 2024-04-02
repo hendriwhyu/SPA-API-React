@@ -1,19 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import useInput from "../hooks/useInput";
 import toast from "react-hot-toast";
+import { ThemeContext } from "../contexts/ThemeContext";
+import { LocaleContext } from "../contexts/LocaleContext";
 
 function RegisterForm({ register }) {
   const [name, handleNameChange] = useInput("");
   const [email, handleEmailChange] = useInput("");
   const [password, handlePasswordChange] = useInput("");
   const [confirmPassword, handleConfirmPasswordChange] = useInput("");
+  const { value: locale } = useContext(LocaleContext);
+  const { value: theme } = useContext(ThemeContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const toastStyle =
+      theme === "light" ? {} : { background: "#333", color: "#fff" };
+    const messageError =
+      locale === "Indonesia"
+        ? "Password tidak cocok"
+        : "Password doesn't match";
     if (password !== confirmPassword) {
-      toast.error("Passwords doesn't match", {
+      toast.error(messageError, {
         position: "top-center",
+        style: toastStyle,
       });
     } else {
       register({ name, email, password });

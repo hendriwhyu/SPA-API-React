@@ -6,16 +6,45 @@ import LoginForm from "../components/LoginForm";
 import { UserContext } from "../contexts/UserContext";
 import toast from "react-hot-toast";
 import { LocaleContext } from "../contexts/LocaleContext";
+import { ThemeContext } from "../contexts/ThemeContext";
 function LoginPage({ loginSuccess }) {
   const { value: locale } = useContext(LocaleContext);
+  const { value: theme } = useContext(ThemeContext);
 
-  const onLogin = async ({ email, password }) => {
+  const onLogin = async (user) => {
+    const { email, password } = user;
     const { error, data, message } = await login({ email, password });
+    const requiredFields = ["email", "password"];
+    let messageError = "";
+    const toastStyle =
+      theme === "light" ? {} : { background: "#333", color: "#fff" };
+
+    if (message === '"email" is not allowed to be empty') {
+      messageError =
+        locale === "Indonesia"
+          ? '"email" tidak terdapat dalam sistem'
+          : message;
+    } else if (message === "Password is wrong") {
+      messageError = locale === "Indonesia" ? "Password salah" : message;
+    } else {
+      messageError =
+        locale === "Indonesia"
+          ? requiredFields
+              .map((field) => (!user[field] ? field : null))
+              .filter(Boolean)
+              .join(", ") + " harus diisi"
+          : requiredFields
+              .map((field) => (!user[field] ? field : null))
+              .filter(Boolean)
+              .join(", ") + " must be filled";
+    }
+
     if (!error) {
       loginSuccess(data);
     } else {
-      toast.error(message, {
+      toast.error(messageError, {
         position: "top-center",
+        style: toastStyle,
       });
     }
   };
