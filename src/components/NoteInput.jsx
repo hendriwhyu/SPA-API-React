@@ -41,7 +41,6 @@ function NoteInput({ addNote }) {
         locale === "Indonesia"
           ? "Judul atau deskripsi tidak boleh kosong"
           : "Title or body can't be empty";
-      theme === "light" ? {} : { background: "#333", color: "#fff" };
       const toastStyle =
         theme === "light" ? {} : { background: "#333", color: "#fff" };
       return toast.error(messageError, {
