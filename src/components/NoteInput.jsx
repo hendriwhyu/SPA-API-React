@@ -5,6 +5,7 @@ import { FaCheck } from "react-icons/fa6";
 import useInput from "../hooks/useInput";
 import { LocaleContext } from "../contexts/LocaleContext";
 import toast, { Toaster } from "react-hot-toast";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 function NoteInputAction(props) {
   const { AddNote } = props;
@@ -32,10 +33,21 @@ function NoteInput({ addNote }) {
   const [title, handleTitleChange] = useInput("");
   const [body, setBody] = useState(null);
   const { value: locale } = useContext(LocaleContext);
+  const { value: theme } = useContext(ThemeContext);
 
   const addNoteEventHandler = () => {
     if (!title || !body) {
-      return toast.error("Title or body cannot be empty");
+      const messageError =
+        locale === "Indonesia"
+          ? "Judul atau deskripsi tidak boleh kosong"
+          : "Title or body can't be empty";
+      theme === "light" ? {} : { background: "#333", color: "#fff" };
+      const toastStyle =
+        theme === "light" ? {} : { background: "#333", color: "#fff" };
+      return toast.error(messageError, {
+        position: "top-center",
+        style: toastStyle,
+      });
     }
     addNote({ title, body });
   };
