@@ -12,7 +12,9 @@ function RegisterForm({ register }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
-      toast.error("Passwords doesn't match");
+      toast.error("Passwords doesn't match", {
+        position: "top-center",
+      });
     } else {
       register({ name, email, password });
     }

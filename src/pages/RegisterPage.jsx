@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 
 function RegisterPage() {
   const navigate = useNavigate();
+  const { value: locale } = useContext(LocaleContext);
+
   const registerHandler = async (user) => {
     const { error, message } = await register(user);
     if (!error) {
@@ -17,7 +19,6 @@ function RegisterPage() {
       });
     }
   };
-  const { value: locale } = useContext(LocaleContext);
 
   return (
     <section className="regsiter-page">
@@ -29,7 +30,7 @@ function RegisterPage() {
       <RegisterForm register={registerHandler} />
       {locale === "Indonesia" ? (
         <p>
-          Sudah punya akun? <Link to={"/login"}>Login disini.</Link>
+          Sudah punya akun? <Link to={"/"}>Login disini.</Link>
         </p>
       ) : (
         <p>
