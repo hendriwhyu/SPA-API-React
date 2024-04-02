@@ -7,13 +7,13 @@ function useNote(defaultFunction) {
   const fetchData = async () => {
     const response = await defaultFunction();
     setNotes(response.data);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      fetchData();
-      setLoading(false);
-    }, 2000);
+    fetchData();
     return () => {
       setLoading(true);
     };

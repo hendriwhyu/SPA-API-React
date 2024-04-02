@@ -13,8 +13,7 @@ import { UserContext } from "../contexts/UserContext";
 
 function Header() {
   const { value: theme, handleChange: changeTheme } = useContext(ThemeContext);
-  const { value: locale, handleChange: changeLocale } =
-    useContext(LocaleContext);
+  const { value: locale, handleChange: changeLocale } = useContext(LocaleContext);
   const { authUser, onLogout } = useContext(UserContext);
   return (
     <header>
@@ -30,10 +29,13 @@ function Header() {
       <button className="toggle-theme" onClick={changeTheme}>
         {theme === "light" ? <MdOutlineDarkMode /> : <MdLightMode />}
       </button>
-      <button className="button-logout" onClick={onLogout}>
-        <MdLogout />
-        {authUser?.name}
-      </button>
+
+      {authUser != null ? (
+        <button className="button-logout" onClick={onLogout}>
+          <MdLogout />
+          {authUser?.name}
+        </button>
+      ) : null}
     </header>
   );
 }

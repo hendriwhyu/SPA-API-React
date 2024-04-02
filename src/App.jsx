@@ -14,6 +14,7 @@ import { LocaleContext } from "./contexts/LocaleContext";
 import { ThemeContext } from "./contexts/ThemeContext";
 import HomePage from "./pages/HomePage";
 import ArchivePage from "./pages/ArchivePage";
+import { Toaster } from "react-hot-toast";
 
 const LANG_SYSTEM = ["id", "en"];
 
@@ -83,6 +84,7 @@ function App() {
                   <Route path="/register" element={<RegisterPage />} />
                 </Routes>
               </main>
+              <Toaster position="top-right" reverseOrder={false} />
               <Footer />
             </div>
           </ThemeContext.Provider>
@@ -106,6 +108,7 @@ function App() {
                 <Route path="/archives" element={<ArchivePage />} />
               </Routes>
             </main>
+            <Toaster position="top-center" reverseOrder={false} />
             <Footer />
           </div>
         </ThemeContext.Provider>

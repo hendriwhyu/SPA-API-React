@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { FaCheck } from "react-icons/fa6";
 import useInput from "../hooks/useInput";
 import { LocaleContext } from "../contexts/LocaleContext";
+import toast, { Toaster } from "react-hot-toast";
 
 function NoteInputAction(props) {
   const { AddNote } = props;
@@ -33,6 +34,9 @@ function NoteInput({ addNote }) {
   const { value: locale } = useContext(LocaleContext);
 
   const addNoteEventHandler = () => {
+    if (!title || !body) {
+      return toast.error("Title or body cannot be empty");
+    }
     addNote({ title, body });
   };
 

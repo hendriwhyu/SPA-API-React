@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import useInput from "../hooks/useInput";
+import toast from "react-hot-toast";
 
 function RegisterForm({ register }) {
   const [name, handleNameChange] = useInput("");
@@ -12,7 +13,7 @@ function RegisterForm({ register }) {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Password tidak sama");
+      toast.error("Passwords doesn't match");
     } else {
       register({ name, email, password });
     }
@@ -46,7 +47,7 @@ function RegisterForm({ register }) {
       <label htmlFor="confirmPassword">Confirm Password</label>
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Confirm Password"
         value={confirmPassword}
         onChange={handleConfirmPasswordChange}
       />

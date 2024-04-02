@@ -52,6 +52,7 @@ function HomePage() {
   const filteredNotes = notes.filter((note) => {
     return note.title.toLowerCase().includes(keyword.toLowerCase());
   });
+  
 
   if (loading) {
     return (

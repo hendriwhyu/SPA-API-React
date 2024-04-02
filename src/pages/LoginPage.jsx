@@ -4,13 +4,15 @@ import { login } from "../utils/api";
 import { Link } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
 import { UserContext } from "../contexts/UserContext";
+import toast from "react-hot-toast";
 function LoginPage({ loginSuccess }) {
   const { setAuthUser } = useContext(UserContext);
   const onLogin = async ({ email, password }) => {
-    const { error, data } = await login({ email, password });
+    const { error, data, message } = await login({ email, password });
     if (!error) {
       loginSuccess(data);
-    //   setAuthUser(data);
+    } else {
+      toast.error(message);
     }
   };
 
