@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from "react";
 import toast from "react-hot-toast";
-const useTheme = (defaultValue) => {
-  const [value, setValue] = useState(defaultValue[0]);
+
+const useTheme = (defaultValue, initial) => {
+  const [value, setValue] = useState(initial);
 
   const handleChange = () => {
     setValue((prevValue) =>

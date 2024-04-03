@@ -55,7 +55,7 @@ function ArchivePage() {
     <section className="archives-page">
       <h2>{locale === "Indonesia" ? "Catatan Arsip" : "Archived Notes"}</h2>
       <SearchBar keyword={keyword} keywordChange={changeSearchParams} />
-      <NoteList notes={filteredNotes} />
+      <NoteList notes={notes} />
     </section>
   );
 }

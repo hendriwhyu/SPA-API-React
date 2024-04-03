@@ -22,8 +22,13 @@ const THEME_SYSTEM = ["light", "dark"];
 function App() {
   const [authUser, setAuthUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
-  const localeValue = useTheme(LANG_SYSTEM);
-  const themeValue = useTheme(THEME_SYSTEM);
+
+  const initialTheme = localStorage.getItem("theme") || THEME_SYSTEM[0];
+  const initialLang = localStorage.getItem("lang") || LANG_SYSTEM[0];
+
+  const localeValue = useTheme(LANG_SYSTEM, initialLang);
+  const themeValue = useTheme(THEME_SYSTEM, initialTheme);
+
   const getAuthUser = async () => {
     const { error, data } = await getUserLogged();
     if (!error) {

@@ -6,6 +6,7 @@ const useThemeToast = (changeTheme, changeLocale, theme, locale) => {
     changeTheme();
     const titleLang = locale === "Indonesia" ? "Ubah ke " : "Change to ";
     const toastTheme = theme === "light" ? "dark" : "light";
+    localStorage.setItem("theme", toastTheme);
     const toastStyle =
       theme === "light" ? { background: "#333", color: "#fff" } : {};
 
@@ -19,6 +20,8 @@ const useThemeToast = (changeTheme, changeLocale, theme, locale) => {
 
   const onChangeLocale = () => {
     changeLocale();
+    const languange = locale === "Indonesia" ? "English" : "Indonesia";
+    localStorage.setItem("lang", languange);
     const titleLang =
       locale === "Indonesia" ? "Change to English" : "Ubah ke Indonesia";
     const toastStyle =

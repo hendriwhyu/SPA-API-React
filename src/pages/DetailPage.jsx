@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { archiveNote, deleteNote, getNote, unarchiveNote } from "../utils/api";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  archiveNote,
+  deleteNote,
+  getActiveNotes,
+  getNote,
+  unarchiveNote,
+} from "../utils/api";
 import DetailButton from "../components/DetailButton";
 import { FaTrash } from "react-icons/fa6";
 import { IoMdArchive } from "react-icons/io";
@@ -9,6 +15,7 @@ import DetailNote from "../components/DetailNote";
 import PropTypes from "prop-types";
 import PageNotFound from "./PageNotFound";
 import toast from "react-hot-toast";
+import useNote from "../hooks/useNote";
 
 function DetailPageAction(props) {
   const { id, isArchived, onDelete, onArchive, onUnarchive } = props;
@@ -42,15 +49,17 @@ function DetailPageAction(props) {
 
 DetailPageAction.propTypes = {
   id: PropTypes.string.isRequired,
-  title: PropTypes.string,
-  icon: PropTypes.element,
-  eventHandler: PropTypes.func,
+  isArchived: PropTypes.bool.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
+  onUnarchive: PropTypes.func.isRequired,
 };
 
 function DetailPage() {
   const { id } = useParams();
   const [note, setNote] = useState();
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigate();
 
   const getDetailNote = async () => {
     const { data } = await getNote(id);
@@ -61,16 +70,19 @@ function DetailPage() {
   const deleteNoteHandler = async (id) => {
     await deleteNote(id);
     toast.success("Successfully delete note!");
+    navigation("/");
   };
 
   const archiveNoteHandler = async (id) => {
     await archiveNote(id);
     toast.success("Successfully archive note!");
+    navigation("/");
   };
 
   const unarchiveNoteHandler = async (id) => {
     await unarchiveNote(id);
     toast.success("Successfully unarchive note!");
+    navigation("/");
   };
 
   useEffect(() => {
